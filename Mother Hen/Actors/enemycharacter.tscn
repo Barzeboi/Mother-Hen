@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://cqpngaybvytky"]
+
+[ext_resource type="Texture2D" uid="uid://bx5bf4iki21qb" path="res://Assets/Enemy/enemy_placeholder.png" id="1_8wfxx"]
+[ext_resource type="Script" path="res://Actors/enemycharacter.gd" id="1_lcxt4"]
+[ext_resource type="Script" path="res://Actors/EnemyHitbox.gd" id="3_d5x0f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xcrb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7t3hl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3gdi"]
+size = Vector2(52, 52)
+
+[sub_resource type="Animation" id="Animation_4uwmi"]
+step = 0.05
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5su1c"]
+_data = {
+"RESET": SubResource("Animation_4uwmi")
+}
+
+[node name="enemycharacter" type="CharacterBody2D"]
+collision_layer = 36
+collision_mask = 31
+script = ExtResource("1_lcxt4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7xcrb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.25, 2.25)
+texture = ExtResource("1_8wfxx")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_7t3hl")
+debug_color = Color(0.843137, 0.180392, 0.054902, 0.419608)
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 18
+script = ExtResource("3_d5x0f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_s3gdi")
+debug_color = Color(0.635294, 0.521569, 0.227451, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5su1c")
+}
+
+[node name="sleep" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="area_entered" from="Hurtbox" to="." method="take_damage"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hit"]
+[connection signal="timeout" from="sleep" to="." method="_on_sleep_timeout"]

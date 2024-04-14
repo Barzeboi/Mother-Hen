@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://cltwarkjl8qv6"]
+
+[ext_resource type="Script" path="res://Misc/game_over.gd" id="1_et7hf"]
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_et7hf")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.424
+anchor_top = 0.403
+anchor_right = 0.576
+anchor_bottom = 0.472
+offset_left = -0.220032
+offset_top = -0.160034
+offset_right = 0.219971
+offset_bottom = 0.159973
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "Game Over"
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.456
+anchor_top = 0.5
+anchor_right = 0.544
+anchor_bottom = 0.522
+offset_left = 52.3199
+offset_top = -4.0
+offset_right = -52.3201
+offset_bottom = -11.84
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Retry"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

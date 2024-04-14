@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3n4qu2xiwm5d"]
+
+[ext_resource type="Script" path="res://Weaponry/bullet.gd" id="1_x184d"]
+[ext_resource type="Texture2D" uid="uid://f8uw0uqrjwdr" path="res://Assets/Weaponry/pellet.png" id="1_y47ct"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nf25f"]
+radius = 5.09902
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_x184d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nf25f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_y47ct")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpfch4e73cgqj"]
+
+[ext_resource type="Script" path="res://Actors/playercharacter.gd" id="1_tbyi2"]
+[ext_resource type="Texture2D" uid="uid://n0v3l2r0ui7r" path="res://Assets/Player/player_placeholder.png" id="1_xmd2o"]
+[ext_resource type="Script" path="res://Actors/Pivot.gd" id="3_5n1ad"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_46bfq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4avbl"]
+
+[node name="Playercharacter" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_tbyi2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.25, 2.25)
+texture = ExtResource("1_xmd2o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_46bfq")
+one_way_collision_margin = 0.0
+
+[node name="Pivot" type="Node2D" parent="."]
+script = ExtResource("3_5n1ad")
+
+[node name="Reticle" type="Marker2D" parent="Pivot"]
+position = Vector2(40, 0)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 32
+metadata/health = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_4avbl")
+debug_color = Color(1, 0.352941, 0.333333, 0.419608)
+
+[connection signal="area_entered" from="Hurtbox" to="." method="take_damage"]
